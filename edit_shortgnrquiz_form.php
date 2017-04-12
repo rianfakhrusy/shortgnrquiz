@@ -36,19 +36,19 @@ defined('MOODLE_INTERNAL') || die();
 class qtype_shortgnrquiz_edit_form extends question_edit_form {
 
     protected function definition_inner($mform) {
-        $mform->addElement('text', 'time', get_string('time', 'qtype_truefalsequizgens'),
+        $mform->addElement('text', 'time', get_string('time', 'qtype_shortgnrquiz'),
                 array('size' => 7));
         $mform->setType('time', PARAM_INT);
         $mform->setDefault('time', 5);
         $mform->addRule('time', null, 'required', null, 'client');
 
-        $mform->addElement('text', 'difficulty', get_string('difficulty', 'qtype_truefalsequizgens'),
+        $mform->addElement('text', 'difficulty', get_string('difficulty', 'qtype_shortgnrquiz'),
                 array('size' => 7));
         $mform->setType('difficulty', PARAM_FLOAT);
         $mform->setDefault('difficulty', 0.5);
         $mform->addRule('difficulty', null, 'required', null, 'client');
 
-        $mform->addElement('text', 'distinguishingdegree', get_string('distinguishingdegree', 'qtype_truefalsequizgens'),
+        $mform->addElement('text', 'distinguishingdegree', get_string('distinguishingdegree', 'qtype_shortgnrquiz'),
                 array('size' => 7));
         $mform->setType('distinguishingdegree', PARAM_FLOAT);
         $mform->setDefault('distinguishingdegree', 0.5);
