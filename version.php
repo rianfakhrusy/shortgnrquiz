@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'qtype_shortgnrquiz';
-$plugin->version   = 2017041206;
+$plugin->version   = 2017041304;
 
 $plugin->requires  = 2016051900;
 

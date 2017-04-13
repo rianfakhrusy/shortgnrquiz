@@ -36,23 +36,25 @@ defined('MOODLE_INTERNAL') || die();
 class qtype_shortgnrquiz_edit_form extends question_edit_form {
 
     protected function definition_inner($mform) {
-        $mform->addElement('text', 'time', get_string('time', 'qtype_shortgnrquiz'),
-                array('size' => 7));
+        $mform->addElement('duration', 'time', get_string('time', 'qtype_shortgnrquiz'),
+                array('optional' => false));
         $mform->setType('time', PARAM_INT);
-        $mform->setDefault('time', 5);
         $mform->addRule('time', null, 'required', null, 'client');
+        $mform->addHelpButton('time', 'time', 'qtype_shortgnrquiz');
 
         $mform->addElement('text', 'difficulty', get_string('difficulty', 'qtype_shortgnrquiz'),
                 array('size' => 7));
-        $mform->setType('difficulty', PARAM_FLOAT);
+        $mform->setType('difficulty', PARAM_TEXT);
         $mform->setDefault('difficulty', 0.5);
         $mform->addRule('difficulty', null, 'required', null, 'client');
+        $mform->addHelpButton('difficulty', 'difficulty', 'qtype_shortgnrquiz');
 
         $mform->addElement('text', 'distinguishingdegree', get_string('distinguishingdegree', 'qtype_shortgnrquiz'),
                 array('size' => 7));
-        $mform->setType('distinguishingdegree', PARAM_FLOAT);
+        $mform->setType('distinguishingdegree', PARAM_TEXT);
         $mform->setDefault('distinguishingdegree', 0.5);
         $mform->addRule('distinguishingdegree', null, 'required', null, 'client');
+        $mform->addHelpButton('distinguishingdegree', 'distinguishingdegree', 'qtype_shortgnrquiz');
 
         $menu = array(
             get_string('caseno', 'qtype_shortgnrquiz'),
@@ -80,10 +82,6 @@ class qtype_shortgnrquiz_edit_form extends question_edit_form {
         $question = parent::data_preprocessing($question);
         $question = $this->data_preprocessing_answers($question);
         $question = $this->data_preprocessing_hints($question);
-/*
-        $question->time = $question->options->time;
-        $question->difficulty = $question->options->difficulty;
-        $question->distinguishingdegree = $question->options->distinguishingdegree;*/
 
         return $question;
     }
@@ -111,6 +109,15 @@ class qtype_shortgnrquiz_edit_form extends question_edit_form {
         }
         if ($maxgrade == false) {
             $errors['answeroptions[0]'] = get_string('fractionsnomax', 'question');
+        }
+        if (($data['time']<=0)||(!is_numeric($data['time']))) {
+            $errors['time'] = get_string('morethanzero', 'qtype_shortgnrquiz');
+        }
+        if (($data['difficulty']<0.0)||($data['difficulty']>1.0)||(!is_numeric($data['difficulty']))) {
+            $errors['difficulty'] = get_string('betweenzeroandone', 'qtype_shortgnrquiz');
+        }
+        if (($data['distinguishingdegree']<0.0)||($data['distinguishingdegree']>1.0)||(!is_numeric($data['distinguishingdegree']))) {
+            $errors['distinguishingdegree'] = get_string('betweenzeroandone', 'qtype_shortgnrquiz');
         }
         return $errors;
     }
